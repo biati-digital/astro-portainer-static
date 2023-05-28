@@ -7,7 +7,7 @@ services:
       dockerfile: ./Dockerfile
     pull_policy: build
     ports:
-      - 3000
+      - 80
     volumes:
       - website:/public_html
     environment:
