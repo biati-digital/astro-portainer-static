@@ -3,7 +3,7 @@ WORKDIR /
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm run build -- --mode custom
+RUN npm run build
 
 #FROM joseluisq/static-web-server AS runtime
 #COPY --from=build /dist /public_html
