@@ -1,15 +1,20 @@
 version: "3.9"
 services:
   site:
-    image: node:lts-bullseye-slim
+    image: joseluisq/static-web-server
     build:
       context: .
       dockerfile: ./Dockerfile
     pull_policy: missing
     ports:
-      - 8080:3000
+      - 3000
     volumes:
-      - site:/www
+      - website:/public_html
+    environment:
+      - SERVER_ROOT=public_html
+      - SERVER_COMPRESSION=true
+      - SERVER_IGNORE_HIDDEN_FILES=true
+      - SERVER_ERROR_PAGE_404=./website/404.html
 
 volumes:
-  site:
+  website:
