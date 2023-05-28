@@ -7,4 +7,5 @@ RUN npm run build -- --mode custom
 
 FROM nginx:alpine AS runtime
 #COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /dist /usr/share/nginx/html
+#COPY --from=build /dist /usr/share/nginx/html
+COPY --from=build /dist /public_html
