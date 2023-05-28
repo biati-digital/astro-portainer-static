@@ -1,14 +1,15 @@
 version: "3.7"
 services:
   site:
-    image: node:lts-bullseye-slim
-    pull_policy: always
+    #image: nginx:alpine
+    pull_policy: build
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     ports:
       - 8080
     volumes:
       - website:/usr/share/nginx/html
-    command: >
-      sh -c " npm install && npm run buld -- --mode custom "
 
 volumes:
   website:
