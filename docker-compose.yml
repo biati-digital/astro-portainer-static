@@ -1,10 +1,11 @@
 version: "3.7"
 services:
-  site:
+  web:
     pull_policy: always
     #image: nginx:alpine
+    deploy:
     build:
-      context: .
+      context: ./web
       dockerfile: ./Dockerfile
     ports:
       - 8080
