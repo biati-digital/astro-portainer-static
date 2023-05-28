@@ -3,7 +3,7 @@ services:
   site:
     image: node:lts-bullseye-slim
     ports:
-      - 80:3000
+      - 8080:3000
     volumes:
       - site:/
     command: >
