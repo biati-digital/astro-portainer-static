@@ -9,4 +9,4 @@ RUN npm run build -- --mode custom
 #COPY --from=build /dist /public_html
 FROM nginx:alpine AS runtime
 COPY ./nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /dist /usr/share/nginx/html
