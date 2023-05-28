@@ -1,5 +1,5 @@
 FROM node:lts AS build
-WORKDIR /
+WORKDIR /website
 COPY package*.json ./
 RUN npm install
 COPY . .
