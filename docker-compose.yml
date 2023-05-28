@@ -1,8 +1,8 @@
 version: "3.7"
 services:
   site:
-    #image: nginx:alpine
     pull_policy: always
+    #image: nginx:alpine
     build:
       context: .
       dockerfile: ./Dockerfile
