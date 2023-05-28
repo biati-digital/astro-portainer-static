@@ -2,10 +2,10 @@ version: "3.7"
 services:
   site:
     image: nginx:alpine
+    #pull_policy: build
     build:
       context: .
       dockerfile: ./Dockerfile
-    pull_policy: build
     ports:
       - 8080
     volumes:
