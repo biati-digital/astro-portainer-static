@@ -14,7 +14,7 @@ services:
       - SERVER_ROOT=public_html
       - SERVER_COMPRESSION=true
       - SERVER_IGNORE_HIDDEN_FILES=true
-      - SERVER_ERROR_PAGE_404=./website/404.html
+      - SERVER_ERROR_PAGE_404=./public_html/404.html
 
 volumes:
   website:
