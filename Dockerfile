@@ -7,5 +7,3 @@ RUN npm run build -- --mode custom
 
 FROM joseluisq/static-web-server AS runtime
 COPY --from=build /dist /public_html
-#COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
-#COPY --from=build /dist /usr/share/nginx/html
