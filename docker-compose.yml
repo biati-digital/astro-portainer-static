@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   site:
-    image: joseluisq/static-web-server
+    image: nginx:alpine
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -10,11 +10,6 @@ services:
       - 80
     volumes:
       - website:/public_html
-    environment:
-      - SERVER_ROOT=public_html
-      - SERVER_COMPRESSION=true
-      - SERVER_IGNORE_HIDDEN_FILES=true
-      - SERVER_ERROR_PAGE_404=./website/404.html
 
 volumes:
   website:
