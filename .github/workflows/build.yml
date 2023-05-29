@@ -1,0 +1,29 @@
+name: Build and commit AstroJS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build AstroJS
+        run: npm run build
+
+      - name: Commit build output
+        uses: EndBug/add-and-commit@v7
+        with:
+          message: Build AstroJS
+          add: 'dist'
+          force: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.BUILD_TOKEN }}
