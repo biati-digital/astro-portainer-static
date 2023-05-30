@@ -25,7 +25,12 @@ jobs:
       - name: Build AstroJS
         run: npm run build
 
-      - name: Commit build output
-        uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: andreiio/rclone-action@v1
         with:
-            commit_message: Automated Build
+            args: sync dist sftp:/ --progress
+        env:
+            RCLONE_CONFIG_SFTP_TYPE: sftp
+            RCLONE_CONFIG_SFTP_HOST: ${{ secrets.SFTP_SERVER }}
+            RCLONE_CONFIG_SFTP_PORT: ${{ secrets.SFTP_PORT }}
+            RCLONE_CONFIG_SFTP_USER: ${{ secrets.SFTP_USER }}
+            RCLONE_CONFIG_SFTP_PASS: ${{ secrets.SFTP_PASSWORD }}
