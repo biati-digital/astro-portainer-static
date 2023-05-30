@@ -27,5 +27,7 @@ jobs:
 
       - name: rclone
         uses: wei/rclone@v1
+        env:
+            RCLONE_CONF:
         with:
             args: sync --sftp-host ${{ secrets.SFTP_SERVER }} --sftp-user ${{ secrets.SFTP_USER }} --sftp-port ${{ secrets.SFTP_PORT }} --sftp-pass $(rclone obscure aAmWciq0TXAHap8k) dist sftp:/ --progress
