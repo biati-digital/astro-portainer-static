@@ -34,4 +34,4 @@ jobs:
             RCLONE_CONFIG_SFTP_USER: ${{ secrets.SFTP_USER }}
             #RCLONE_CONFIG_SFTP_PASS: ${{ secrets.SFTP_PASSWORD }}
         with:
-            args: sync --sftp-pass $(rclone obscure aAmWciq0TXAHap8k) dist sftp:/ --progress
+            args: sync --sftp-pass $(rclone obscure ${{ secrets.SFTP_PASSWORD }}) dist sftp:/ --progress
