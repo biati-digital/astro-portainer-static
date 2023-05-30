@@ -27,7 +27,7 @@ jobs:
 
       - uses: andreiio/rclone-action@v1
         with:
-            args: sync --sftp-pass \$\(rclone obscure aAmWciq0TXAHap8k\) --progress dist sftp:/
+            args: sync --sftp-pass="$(rclone obscure aAmWciq0TXAHap8k)" --progress dist sftp:/
         env:
             RCLONE_CONFIG_SFTP_TYPE: sftp
             RCLONE_CONFIG_SFTP_HOST: ${{ secrets.SFTP_SERVER }}
