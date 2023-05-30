@@ -14,6 +14,7 @@ jobs:
       # added or changed files to the repository.
       contents: write
 
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -27,10 +28,9 @@ jobs:
       - uses: andreiio/rclone-action@v1
         with:
             args: sync dist sftp:/ --progress
-            #args: sync dist sftp:/ --progress --sftp-pass $(rclone obscure ${{ secrets.SFTP_PASSWORD }})
         env:
             RCLONE_CONFIG_SFTP_TYPE: sftp
             RCLONE_CONFIG_SFTP_HOST: ${{ secrets.SFTP_SERVER }}
             RCLONE_CONFIG_SFTP_PORT: ${{ secrets.SFTP_PORT }}
             RCLONE_CONFIG_SFTP_USER: ${{ secrets.SFTP_USER }}
-            RCLONE_CONFIG_SFTP_PASS: $(rclone obscure ${{ secrets.SFTP_PASSWORD }})
+            RCLONE_CONFIG_SFTP_PASS: ${{ secrets.SFTP_PASSWORD }}
