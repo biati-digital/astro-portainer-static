@@ -25,13 +25,7 @@ jobs:
       - name: Build AstroJS
         run: npm run build
 
-      - uses: andreiio/rclone-action@v1
+      - name: rclone
+        uses: wei/rclone@v1
         with:
-            args: sync --sftp-pass="$(echo "aAmWciq0TXAHap8k" | rclone obscure -)" --progress dist sftp:/
-            #args: sync --sftp-pass="$(rclone obscure aAmWciq0TXAHap8k)" --progress dist sftp:/
-        env:
-            RCLONE_CONFIG_SFTP_TYPE: sftp
-            RCLONE_CONFIG_SFTP_HOST: ${{ secrets.SFTP_SERVER }}
-            RCLONE_CONFIG_SFTP_PORT: ${{ secrets.SFTP_PORT }}
-            RCLONE_CONFIG_SFTP_USER: ${{ secrets.SFTP_USER }}
-            #RCLONE_CONFIG_SFTP_PASS: ${{ secrets.SFTP_PASSWORD }}
+            args: sync --sftp-host ${{ secrets.SFTP_SERVER }} --sftp-user ${{ secrets.SFTP_USER }} --sftp-port ${{ secrets.SFTP_PORT }} --sftp-pass $(rclone obscure aAmWciq0TXAHap8k) dist sftp:/ --progress
