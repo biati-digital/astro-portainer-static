@@ -25,19 +25,13 @@ jobs:
       - name: Build AstroJS
         run: npm run build
 
-      - name: Encrypt password
-        uses: andreiio/rclone-action@v1
-        run: |
-            echo "PASSWORD=rclone obscure ${{ secrets.SFTP_PASSWORD }}" >> $GITHUB_OUTPUT
-        with:
-            args: obscure ${{ secrets.SFTP_PASSWORD }}
-        id: obscurepass
-
       - uses: andreiio/rclone-action@v1
         with:
-            args: sync dist sftp:/ --progress --sftp-pass $(rclone obscure ${{ steps.obscurepass.outputs.PASSWORD }}
+            args: sync dist sftp:/ --progress --sftp-pass $(rclone obscure ${{ secrets.SFTP_PASSWORD }})
+            #args: sync dist sftp:/ --progress --sftp-pass $(rclone obscure ${{ secrets.SFTP_PASSWORD }})
         env:
             RCLONE_CONFIG_SFTP_TYPE: sftp
             RCLONE_CONFIG_SFTP_HOST: ${{ secrets.SFTP_SERVER }}
             RCLONE_CONFIG_SFTP_PORT: ${{ secrets.SFTP_PORT }}
             RCLONE_CONFIG_SFTP_USER: ${{ secrets.SFTP_USER }}
+            RCLONE_CONFIG_SFTP_PASS: $(rclone obscure ${{ secrets.SFTP_PASSWORD }})
