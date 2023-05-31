@@ -3,7 +3,7 @@ services:
   web:
     build: ./
     pull_policy: build
-    image: biati-astrojs
+    image: astrojs-static
     restart: unless-stopped
     ports:
       - 8080
