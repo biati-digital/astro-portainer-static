@@ -14,16 +14,10 @@ WORKDIR /app
 RUN chown -R nginx:nginx /app && chmod -R 755 /app && \
     chown -R nginx:nginx /var/cache/nginx && \
     chown -R nginx:nginx /var/log/nginx && \
+    chown -R nginx:nginx /usr/share/nginx/html && \
     chown -R nginx:nginx /etc/nginx/conf.d
 RUN touch /var/run/nginx.pid && \
     chown -R nginx:nginx /var/run/nginx.pid
 USER nginx
 #EXPOSE <PORT_NUMBER>
 CMD ["nginx", "-g", "daemon off;"]
-
-
-#RUN useradd -m -d /home/www www
-#RUN chown -R nginx:nginx /usr/share/nginx/html/*
-#COPY --from=build ./docker-entrypoint.sh /docker-entrypoint.sh
-#RUN chmod +x /docker-entrypoint.sh
-#ENTRYPOINT ["/docker-entrypoint.sh"]
