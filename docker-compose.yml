@@ -3,7 +3,6 @@ services:
   web:
     pull_policy: always
     #image: nginx:alpine
-    deploy:
     build:
       context: ./
       dockerfile: ./Dockerfile
