@@ -8,6 +8,3 @@ services:
     ports:
       - 80
       - 443
-    volumes:
-      - ./var/lib/docker/volumes/aruma_website:/usr/share/nginx/html
-      #- website:/usr/share/nginx/html
