@@ -3,10 +3,8 @@ services:
   web:
     build: ./
     pull_policy: build
-    image: biatiastrojs
+    image: biati-astrojs
     restart: unless-stopped
     ports:
       - 80
       - 443
-    volumes:
-      - ./ot/:/usr/share/nginx/html/
