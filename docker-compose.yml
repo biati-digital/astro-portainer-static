@@ -8,3 +8,5 @@ services:
     ports:
       - 80
       - 443
+    volumes:
+      - ./ot/:/usr/share/nginx/html/
