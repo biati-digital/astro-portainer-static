@@ -3,8 +3,13 @@ services:
   web:
     build: ./
     pull_policy: build
-    image: biati-astrojs:4
+    image: nginx:alpine
     restart: unless-stopped
     ports:
       - 80
       - 443
+    volumes:
+      - website:/usr/share/nginx/html
+
+volumes:
+  website:
