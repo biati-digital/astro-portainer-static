@@ -11,6 +11,3 @@ services:
     volumes:
       - ./var/lib/docker/volumes/lion_website:/usr/share/nginx/html
       #- website:/usr/share/nginx/html
-
-volumes:
-  website:
