@@ -5,7 +5,7 @@ services:
     #image: nginx:alpine
     deploy:
     build:
-      context: ./web
+      context: ./
       dockerfile: ./Dockerfile
     ports:
       - 8080

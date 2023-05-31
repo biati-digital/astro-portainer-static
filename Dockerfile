@@ -1,13 +1,9 @@
-FROM node:lts AS build
+FROM node:lts-alpine AS build
 COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build -- --mode custom
 
-#FROM joseluisq/static-web-server AS runtime
-#COPY --from=build /dist /public_html
-FROM nginx:alpine AS runtime
-COPY ./nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /dist /usr/share/nginx/html
-RUN touch /usr/share/nginx/html/manulin.txt
-RUN touch /usr/share/nginx/html/exmaple.txt
+FROM node:lts-alpine AS runtime
+COPY ./nginx.conf ./nginx.conf
+COPY --from=build /dist .

@@ -25,7 +25,7 @@ jobs:
       - name: Build AstroJS
         run: npm run build
 
-      - name: rclone
+      - name: Deploy to Server
         uses: wei/rclone@v1
         env:
             RCLONE_CONFIG_SFTP_TYPE: sftp
