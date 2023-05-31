@@ -1,8 +1,9 @@
-version: "3.7"
+version: "3.9"
 services:
   web:
     build: ./
     pull_policy: build
+    image: biati-astrojs:1
     restart: unless-stopped
     ports:
       - 80
