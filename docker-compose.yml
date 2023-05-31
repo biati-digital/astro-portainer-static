@@ -6,5 +6,4 @@ services:
     image: biati-astrojs
     restart: unless-stopped
     ports:
-      - 80
-      - 443
+      - 8080
