@@ -3,11 +3,11 @@ services:
   web:
     build: ./
     pull_policy: build
-    image: nginx:alpine
+    image: biatiastrojs
     restart: unless-stopped
     ports:
       - 80
       - 443
     volumes:
-      - ./var/lib/docker/volumes/lion_website:/usr/share/nginx/html
+      - ./var/lib/docker/volumes/aruma_website:/usr/share/nginx/html
       #- website:/usr/share/nginx/html
