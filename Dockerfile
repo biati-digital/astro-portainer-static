@@ -5,7 +5,7 @@ COPY /dist /usr/share/nginx/html
 RUN addgroup --system --gid 1001 www
 RUN adduser --system --uid 1001 www
 
-WORKDIR /usr/share/nginx/html
+WORKDIR /
 RUN chown -R www:www /app && chmod -R 755 /app && \
     chown -R www:www /var/cache/nginx && \
     chown -R www:www /var/log/nginx && \
