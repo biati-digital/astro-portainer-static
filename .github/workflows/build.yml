@@ -16,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 3
 
       - name: Use Node.js
         uses: actions/setup-node@v3
@@ -45,9 +45,10 @@ jobs:
         run: |
           cat .github/outputs/added_files.txt
 
-      - name: Get changed files
-        id: changed-files
-        run: |
-          git fetch origin main
-          diff=$(git diff --name-only --diff-filter=AM origin/main..HEAD | tr '\n' ' ')
-          echo "ADDED_MODIFIED=$diff" >> "$GITHUB_OUTPUT"
+      - name: All files
+        id: files
+        uses: masesgroup/retrieve-changed-files@v2
+      - run: |
+          for changed_file in ${{ steps.files.outputs.all }}; do
+            echo "Do something with this ${changed_file}."
+          done

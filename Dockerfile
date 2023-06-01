@@ -16,4 +16,4 @@ RUN touch /var/run/nginx.pid && \
 USER www
 
 CMD ["nginx", "-g", "daemon off;"]
-#example gfgf
+#example gfgf gfgfgf
