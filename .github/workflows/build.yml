@@ -38,5 +38,4 @@ jobs:
         if: success() && env.webhook_url != null
         env:
           webhook_url: ${{ secrets.webhook_url }}
-          webhook_secret: "CKccJfNzqwaGjwDc"
           verify_ssl: false
