@@ -35,20 +35,17 @@ jobs:
         with:
           commit_message: Automatic Build
 
-      - name: Get changed files and write the outputs to a txt file
-        id: changed-files-write-output-files-txt
-        uses: tj-actions/changed-files@v36
-        with:
-          write_output_files: true
-
-      - name: Verify the contents of the .github/outputs/added_files.txt file
-        run: |
-          cat .github/outputs/added_files.txt
-
       - name: All files
         id: files
         uses: masesgroup/retrieve-changed-files@v2
       - run: |
+          CHANGED_FILES=""
           for changed_file in ${{ steps.files.outputs.all }}; do
-            echo "Do something with this ${changed_file}."
+            echo "--include ${changed_file} "
+            CHANGED_FILES+="--include ${changed_file} "
           done
+          echo "modified=${CHANGED_FILES}" >> $GITHUB_ENV
+
+      - name: "get the files from env"
+        if: env.modified
+        run: echo "${changed_file} Flag is available and true"
