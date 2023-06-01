@@ -15,8 +15,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
 
       - name: Use Node.js
         uses: actions/setup-node@v3
@@ -35,12 +33,10 @@ jobs:
         with:
           commit_message: Automatic Build
 
-      - name: Get changed files and write the outputs to a txt file
-        id: changed-files-write-output-files-txt
-        uses: tj-actions/changed-files@v36
-        with:
-          write_output_files: true
-
-      - name: Verify the contents of the .github/outputs/added_files.txt file
-        run: |
-          cat .github/outputs/added_files.txt
+      - name: Webhook
+        uses: distributhor/workflow-webhook@v1
+        if: success() && env.webhook_url != null
+        env:
+          webhook_url: ${{ secrets.webhook_url }}
+          webhook_secret: false
+          verify_ssl: false
