@@ -48,6 +48,6 @@ jobs:
       - name: Get changed files
         id: changed-files
         run: |
-          git fetch origin master
+          git fetch origin main
           diff=$(git diff --name-only --diff-filter=AM origin/main..HEAD | tr '\n' ' ')
           echo "ADDED_MODIFIED=$diff" >> "$GITHUB_OUTPUT"
