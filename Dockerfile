@@ -1,23 +1,18 @@
-FROM node:lts-alpine AS build
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build -- --mode custom
-
 FROM nginx:alpine AS runtime
 COPY ./nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY /dist /usr/share/nginx/html
+
+RUN addgroup --system --gid 1001 www
+RUN adduser --system --uid 1001 www
 
 WORKDIR /app
-RUN chown -R nginx:nginx /app && chmod -R 755 /app && \
-    chown -R nginx:nginx /var/cache/nginx && \
-    chown -R nginx:nginx /var/log/nginx && \
-    chown -R nginx:nginx /usr/share/nginx/html && \
-    chown -R nginx:nginx /etc/nginx/conf.d
+RUN chown -R www:www /app && chmod -R 755 /app && \
+    chown -R www:www /var/cache/nginx && \
+    chown -R www:www /var/log/nginx && \
+    chown -R www:www /usr/share/nginx/html && \
+    chown -R www:www /etc/nginx/conf.d
 RUN touch /var/run/nginx.pid && \
-    chown -R nginx:nginx /var/run/nginx.pid
-USER nginx
-#EXPOSE <PORT_NUMBER>
+    chown -R www:www /var/run/nginx.pid
+USER www
+
 CMD ["nginx", "-g", "daemon off;"]

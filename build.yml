@@ -1,0 +1,31 @@
+name: Build and Deploy AstroJS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build AstroJS
+        run: npm run build
+
+      - name: Deploy to Server
+        uses: wei/rclone@v1
+        env:
+            RCLONE_CONFIG_SFTP_TYPE: sftp
+            RCLONE_CONFIG_SFTP_HOST: ${{ secrets.SFTP_SERVER }}
+            RCLONE_CONFIG_SFTP_PORT: ${{ secrets.SFTP_PORT }}
+            RCLONE_CONFIG_SFTP_USER: ${{ secrets.SFTP_USER }}
+            #RCLONE_CONFIG_SFTP_PASS: ${{ secrets.SFTP_PASSWORD }}
+        with:
+            args: sync --sftp-pass $(rclone obscure ${{ secrets.SFTP_PASSWORD }}) dist sftp:/ --progress

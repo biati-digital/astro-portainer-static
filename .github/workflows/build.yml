@@ -1,4 +1,4 @@
-name: Build and commit AstroJS
+name: Build and Deploy
 
 on:
   push:
@@ -9,23 +9,34 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+
       - name: Install dependencies
         run: npm install
 
-      - name: Build AstroJS
+      - name: Build
         run: npm run build
 
-      - name: Deploy to Server
-        uses: wei/rclone@v1
-        env:
-            RCLONE_CONFIG_SFTP_TYPE: sftp
-            RCLONE_CONFIG_SFTP_HOST: ${{ secrets.SFTP_SERVER }}
-            RCLONE_CONFIG_SFTP_PORT: ${{ secrets.SFTP_PORT }}
-            RCLONE_CONFIG_SFTP_USER: ${{ secrets.SFTP_USER }}
-            #RCLONE_CONFIG_SFTP_PASS: ${{ secrets.SFTP_PASSWORD }}
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        if: success()
         with:
-            args: sync --sftp-pass $(rclone obscure ${{ secrets.SFTP_PASSWORD }}) dist sftp:/ --progress
+          commit_message: Automatic Build
+
+      - name: Webhook
+        uses: distributhor/workflow-webhook@v1
+        if: success() && env.webhook_url != null
+        env:
+          webhook_url: ${{ secrets.webhook_url }}
+          webhook_secret: "CKccJfNzqwaGjwDc"
+          verify_ssl: false
