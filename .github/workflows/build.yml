@@ -48,4 +48,4 @@ jobs:
 
       - name: "get the files from env"
         if: env.modified
-        run: echo "rclone example ${env.modified}"
+        run: echo "${{env.modified}}"
