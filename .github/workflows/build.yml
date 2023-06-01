@@ -40,12 +40,22 @@ jobs:
         uses: masesgroup/retrieve-changed-files@v2
       - run: |
           CHANGED_FILES=""
-          for changed_file in ${{ steps.files.outputs.all }}; do
-            echo "--include ${changed_file} "
+          DELETED_FILES=""
+          for changed_file in ${{ steps.files.outputs.added_modified }}; do
+            echo "--modified ${changed_file} "
             CHANGED_FILES+="--include ${changed_file} "
           done
           echo "modified=${CHANGED_FILES}" >> $GITHUB_ENV
+          for deleted_file in ${{ steps.files.outputs.removed }}; do
+            echo "--deleted ${deleted_file} "
+            DELETED_FILES+="--include ${deleted_file} "
+          done
+          echo "deleted=${DELETED_FILES}" >> $GITHUB_ENV
 
-      - name: "get the files from env"
+      - name: "Sync modified files"
         if: env.modified
         run: echo "${{env.modified}}"
+
+      - name: "Sync deleted files"
+        if: env.deleted
+        run: echo "${{env.deleted}}"
