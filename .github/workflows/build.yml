@@ -44,3 +44,10 @@ jobs:
       - name: Verify the contents of the .github/outputs/added_files.txt file
         run: |
           cat .github/outputs/added_files.txt
+
+      - name: Get changed files
+        id: changed-files
+        run: |
+          git fetch origin master
+          diff=$(git diff --name-only --diff-filter=AM origin/main..HEAD | tr '\n' ' ')
+          echo "ADDED_MODIFIED=$diff" >> "$GITHUB_OUTPUT"
