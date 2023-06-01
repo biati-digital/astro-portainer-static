@@ -48,4 +48,4 @@ jobs:
 
       - name: "get the files from env"
         if: env.modified
-        run: echo "${changed_file} Flag is available and true"
+        run: echo "rclone example ${env.modified}"
