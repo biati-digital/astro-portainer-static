@@ -48,7 +48,7 @@ jobs:
           echo "modified=${CHANGED_FILES}" >> $GITHUB_ENV
           for deleted_file in ${{ steps.files.outputs.removed }}; do
             echo "--deleted ${deleted_file} "
-            DELETED_FILES+="--include ${deleted_file} "
+            DELETED_FILES+="--deleted ${deleted_file} "
           done
           echo "deleted=${DELETED_FILES}" >> $GITHUB_ENV
 
