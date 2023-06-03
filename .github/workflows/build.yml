@@ -15,8 +15,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 3
 
       - name: Use Node.js
         uses: actions/setup-node@v3
@@ -35,27 +33,10 @@ jobs:
         with:
           commit_message: Automatic Build
 
-      - name: All files
-        id: files
-        uses: masesgroup/retrieve-changed-files@v2
-      - run: |
-          CHANGED_FILES=""
-          DELETED_FILES=""
-          for changed_file in ${{ steps.files.outputs.added_modified }}; do
-            echo "--modified ${changed_file} "
-            CHANGED_FILES+="--include ${changed_file} "
-          done
-          echo "modified=${CHANGED_FILES}" >> $GITHUB_ENV
-          for deleted_file in ${{ steps.files.outputs.removed }}; do
-            echo "--deleted ${deleted_file} "
-            DELETED_FILES+="--deleted ${deleted_file} "
-          done
-          echo "deleted=${DELETED_FILES}" >> $GITHUB_ENV
-
-      - name: "Sync modified files"
-        if: env.modified
-        run: echo "${{env.modified}}"
-
-      - name: "Sync deleted files"
-        if: env.deleted
-        run: echo "${{env.deleted}}"
+      - name: Webhook
+        uses: distributhor/workflow-webhook@v1
+        if: success() && env.webhook_url != null
+        env:
+          webhook_url: ${{ secrets.webhook_url }}
+          webhook_secret: false
+          verify_ssl: false
